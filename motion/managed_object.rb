@@ -34,6 +34,7 @@ class CDQManagedObject < CoreDataQueryManagedObjectBase
           klass.defineRelationshipMethod(name)
         end
       end
+      @@__semaphore ||= Dispatch::Semaphore.new(1)
     end
 
     # Creates a CDQ scope, but also defines a method on the class that returns the
@@ -214,9 +215,11 @@ class CDQManagedObject < CoreDataQueryManagedObjectBase
   # Called from method that's dynamically added from
   # +[CoreDataManagedObjectBase defineRelationshipMethod:]
   def relationshipByName(name)
+    @@__semaphore.wait
     willAccessValueForKey(name)
     set = CDQRelationshipQuery.extend_set(set_to_extend(name), self, name)
     didAccessValueForKey(name)
+    @@__semaphore.signal
     set
   end
 
