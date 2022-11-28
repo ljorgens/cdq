@@ -26,9 +26,10 @@ module CDQ
       end
     end
 
-    def dealloc
-      super
-    end
+    # This triggers a EXC_BREAKPOINT on iOS 16.x
+    #def dealloc
+    #  super
+    #end
 
     # Creates a new managed object within the target relationship
     #

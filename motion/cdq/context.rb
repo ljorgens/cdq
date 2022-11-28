@@ -13,7 +13,8 @@ module CDQ
 
     def dealloc
       NSNotificationCenter.defaultCenter.removeObserver(self) if @observed_context
-      super
+      # Trigger exception on iOS 16.x
+      #super
     end
 
     # Push a new context onto the stack for the current thread, making that context the
