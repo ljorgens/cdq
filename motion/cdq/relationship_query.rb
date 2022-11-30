@@ -57,8 +57,9 @@ module CDQ
     end
 
     def self.extend_set(set, owner, name)
-      set.extend SetExt
-      set.extend Enumerable
+      # This causes all sort of mayhem in multithreaded situation
+      #set.extend SetExt
+      #set.extend Enumerable
       set.__query__ = self.new(owner, name, set)
       set
     end
@@ -144,4 +145,14 @@ module CDQ
 
   end
 
+end
+
+class NSMutableOrderedSet
+  include CDQ::CDQRelationshipQuery::SetExt
+  include Enumerable
+end
+
+class NSMutableSet
+  include CDQ::CDQRelationshipQuery::SetExt
+  include Enumerable
 end
