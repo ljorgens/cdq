@@ -70,9 +70,10 @@ module CDQ
     module SetExt
       attr_accessor :__query__
 
-      def set
-        self
-      end
+      # This causes a TAB of arrow keys to crash the app on iOS 17.x on iPad with external keyboards
+      #def set
+      #  self
+      #end
 
       # This works in a special way.  If we're extending a regular NSSet, it will
       # create a new method that calls allObjects.  If we're extending a NSOrderedSet,
@@ -140,7 +141,6 @@ module CDQ
           super
         end
       end
-
     end
 
   end
