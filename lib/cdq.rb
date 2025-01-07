@@ -17,7 +17,7 @@ Motion::Project::App.setup do |app|
   app.vendor_project(File.join(parent, 'vendor/cdq/ext'), :static)
   if app.respond_to?(:xcdm)
     cdqfile = File.join(app.project_dir, 'resources/cdq.yml')
-    if File.exists?(cdqfile)
+    if File.exist?(cdqfile)
       hash = YAML.load(File.read(cdqfile))
       if hash
         app.xcdm.name = hash['model_name'] || hash['name']
